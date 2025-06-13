@@ -19,50 +19,69 @@ np.set_printoptions(suppress=True)
 st.set_page_config(page_title="Transistor Anomaly Detector", page_icon="🔍")
 st.markdown("""
     <style>
-        html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"] {
-            background-color: #121212;
-            color: #FFFFFF !important;
+        /* Global Background and Font */
+        html, body, [data-testid="stAppViewContainer"] {
+            background-color: #111 !important;
+            color: #fff !important;
+            font-family: 'Segoe UI', sans-serif;
         }
 
+        /* Sidebar Styling */
+        [data-testid="stSidebar"] {
+            background-color: #1c1c1c !important;
+            color: white !important;
+        }
+
+        /* Heading & Text */
         h1, h2, h3, h4, h5, h6, p, span, div {
-            color: #FFFFFF !important;
+            color: #ffffff !important;
         }
 
-        .stMarkdown, .stText, .stCaption, .css-1d391kg, .css-qrbaxs {
-            color: #FFFFFF !important;
+        /* File uploader area */
+        .css-1cpxqw2, .css-13sdm1e, .css-1v0mbdj {
+            background-color: #222 !important;
+            color: white !important;
+            border: 1px solid #444;
         }
 
+        /* Warning/success boxes */
+        .stAlert {
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        /* Radio buttons */
+        .stRadio > label {
+            color: white !important;
+        }
+
+        /* Buttons */
         .stButton>button {
             background-color: #e84d4d;
             color: white !important;
-            padding: 0.6rem 1.5rem;
-            border-radius: 10px;
+            padding: 0.6rem 1.4rem;
             font-size: 1rem;
             font-weight: bold;
-            transition: 0.3s;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(232, 77, 77, 0.4);
+            transition: all 0.2s ease-in-out;
         }
 
         .stButton>button:hover {
-            background-color: #ff6666;
-            transform: scale(1.02);
+            background-color: #ff5e5e;
+            transform: scale(1.03);
         }
 
+        /* Image shadow and border */
         img {
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
-        }
-
-        /* Fix radio, checkbox, labels, etc. */
-        label, .css-16idsys {
-            color: white !important;
-        }
-
-        /* Fix file uploader text */
-        .css-13sdm1e, .css-1h6z29u {
-            color: white !important;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 st.markdown("""
     <div style='text-align: center; padding: 2rem; background: linear-gradient(135deg, #ff4b4b, #e84d4d); border-radius: 12px;'>
