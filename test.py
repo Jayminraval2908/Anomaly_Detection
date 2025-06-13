@@ -34,7 +34,7 @@ st.write(
 )
 
 with st.sidebar:
-    img = Image.open("./docs/overview_dataset.jpg")
+    img = Image.open(".docs/overview_dataset.jpg")
     st.image(img)
     st.subheader("About InspectorsAlly")
     st.write(
