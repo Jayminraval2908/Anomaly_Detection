@@ -1,8 +1,8 @@
 [theme]
-primaryColor = "#FF4B4B"
-backgroundColor = "#0E1117"
-secondaryBackgroundColor = "#262730"
-textColor = "#FAFAFA"
+primaryColor = "#20C997"                # Mint/teal green
+backgroundColor = "#F5F7FA"             # Light cream/white smoke
+secondaryBackgroundColor = "#E0ECE4"    # Soft mint gray for sidebars/cards
+textColor = "#212529"                   # Dark gray for high contrast
 font = "sans serif"
 
 [browser]
