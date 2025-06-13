@@ -19,7 +19,7 @@ np.set_printoptions(suppress=True)
 st.set_page_config(page_title="Transistor Anomaly Detector", page_icon="🔍")
 # Banner
 st.markdown("""
-    <div style='text-align: center; padding: 2rem; background-color: #2c3e50; border-radius: 10px;'>
+    <div style='text-align: center; padding: 2rem; background-color: #2c2b4b; border-radius: 10px;'>
         <h1 style='color: #333; font-size: 2.5em;'>🔍 Transistor Anomaly Detector</h1>
         <p style='color: #333; font-size: 1.2em;'>AI-Powered Quality Control for Transistor circuits</p>
     </div>
@@ -29,7 +29,7 @@ st.markdown("""
 st.markdown("""
     <style>
         [data-testid="stSidebar"] {
-            background-color: #2c3e50 !important;
+            background-color: #2c2b4b !important;
         }
     </style>
 """, unsafe_allow_html=True)
