@@ -31,6 +31,23 @@ st.markdown("""
             background-color: #1c1c1c !important;
             color: white !important;
         }
+        header[data-testid="stHeader"] {
+    background-color: #111 !important;
+    color: white !important;
+}
+
+/* Drag-and-drop box visibility */
+.css-1cpxqw2, .css-13sdm1e, .css-1v0mbdj {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border: 2px dashed #888 !important;
+}
+
+/* Upload text fix inside drop area */
+.css-13sdm1e div, .css-1v0mbdj div {
+    color: #eee !important;
+    font-weight: 500;
+}
 
         /* Heading & Text */
         h1, h2, h3, h4, h5, h6, p, span, div {
