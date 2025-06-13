@@ -19,34 +19,51 @@ np.set_printoptions(suppress=True)
 st.set_page_config(page_title="Transistor Anomaly Detector", page_icon="🔍")
 st.markdown("""
     <style>
-        body {
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"] {
             background-color: #121212;
-            color: #FFFFFF;
+            color: #FFFFFF !important;
         }
-        [data-testid="stAppViewContainer"] {
-            background-color: #121212;
+
+        h1, h2, h3, h4, h5, h6, p, span, div {
+            color: #FFFFFF !important;
         }
-        [data-testid="stSidebar"] {
-            background-color: #1e1e1e;
+
+        .stMarkdown, .stText, .stCaption, .css-1d391kg, .css-qrbaxs {
+            color: #FFFFFF !important;
         }
+
         .stButton>button {
             background-color: #e84d4d;
-            color: white;
+            color: white !important;
             padding: 0.6rem 1.5rem;
             border-radius: 10px;
             font-size: 1rem;
+            font-weight: bold;
             transition: 0.3s;
         }
+
         .stButton>button:hover {
             background-color: #ff6666;
             transform: scale(1.02);
         }
+
         img {
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
         }
+
+        /* Fix radio, checkbox, labels, etc. */
+        label, .css-16idsys {
+            color: white !important;
+        }
+
+        /* Fix file uploader text */
+        .css-13sdm1e, .css-1h6z29u {
+            color: white !important;
+        }
     </style>
 """, unsafe_allow_html=True)
+
 st.markdown("""
     <div style='text-align: center; padding: 2rem; background: linear-gradient(135deg, #ff4b4b, #e84d4d); border-radius: 12px;'>
         <h1 style='color: white; font-size: 2.8em; text-shadow: 2px 2px #000;'>🔍 Transistor Anomaly Detector</h1>
