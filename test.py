@@ -83,7 +83,7 @@ elif input_method == "Camera Input":
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_folder = "./data/"
-subset_name = "leather"
+subset_name = "keras"
 data_folder = os.path.join(data_folder, subset_name)
 
 
@@ -91,7 +91,7 @@ def Anomaly_Detection(image_path, root):
     batch_size = 1
     threshold = 0.5
 
-    subset_name = "leather"
+    subset_name = "keras"
     model_path = f"./weights/{subset_name}_model.h5"
     model = torch.load(model_path, map_location=device)
     model.eval()  # make sure it's in evaluation mode
