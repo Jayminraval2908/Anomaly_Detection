@@ -18,83 +18,15 @@ np.set_printoptions(suppress=True)
 # Page layout
 st.set_page_config(page_title="Transistor Anomaly Detector", page_icon="🔍")
 st.markdown("""
+    <div style='text-align: center; padding: 2rem; background-color: #e84d4d; border-radius: 10px;'>
+        <h1 style='color: white; font-size: 2.5em;'>🔍 Transistor Anomaly Detector</h1>
+        <p style='color: white; font-size: 1.2em;'>AI-Powered Quality Control for Transistor circuits</p>
+    </div>
+""", unsafe_allow_html=True)
+st.markdown("""
     <style>
-        /* Global Background and Font */
-        html, body, [data-testid="stAppViewContainer"] {
-            background-color: #111 !important;
-            color: #fff !important;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        /* Sidebar Styling */
         [data-testid="stSidebar"] {
-            background-color: #1c1c1c !important;
-            color: white !important;
-        }
-        header[data-testid="stHeader"] {
-    background-color: #111 !important;
-    color: white !important;
-}
-
-/* Drag-and-drop box visibility */
-.css-1cpxqw2, .css-13sdm1e, .css-1v0mbdj {
-    background-color: #2a2a2a !important;
-    color: #fff !important;
-    border: 2px dashed #888 !important;
-}
-
-/* Upload text fix inside drop area */
-.css-13sdm1e div, .css-1v0mbdj div {
-    color: #eee !important;
-    font-weight: 500;
-}
-
-        /* Heading & Text */
-        h1, h2, h3, h4, h5, h6, p, span, div {
-            color: #ffffff !important;
-        }
-
-        /* File uploader area */
-        .css-1cpxqw2, .css-13sdm1e, .css-1v0mbdj {
-            background-color: #222 !important;
-            color: white !important;
-            border: 1px solid #444;
-        }
-
-        /* Warning/success boxes */
-        .stAlert {
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 1rem;
-        }
-
-        /* Radio buttons */
-        .stRadio > label {
-            color: white !important;
-        }
-
-        /* Buttons */
-        .stButton>button {
-            background-color: #e84d4d;
-            color: white !important;
-            padding: 0.6rem 1.4rem;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(232, 77, 77, 0.4);
-            transition: all 0.2s ease-in-out;
-        }
-
-        .stButton>button:hover {
-            background-color: #ff5e5e;
-            transform: scale(1.03);
-        }
-
-        /* Image shadow and border */
-        img {
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+            background-color: #e84d4d !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -111,16 +43,17 @@ with st.sidebar:
     st.image(img.resize((150, 150)))
     st.header("📝 About ")
     st.markdown("""
-    This AI-powered app inspects **Transistor Circuit Images** and classifies them as:
+    Transistor Anomaly Detection App is a powerful AI-powered application designed to help businesses and engineers streamline quality control for **Transistor Circuit Inspections**.
+
+    This app uses deep learning and computer vision to **Automatically classify Transistor circuit images** as:
     - ✅ Good
-    - ⚠️ Anomaly
+    - ⚠️ Anomaly (defect or irregularity)
 
-    **Ideal For:**
-    - Semiconductor QC
-    - Electronics Inspection
-    - Lab Demonstrations
+    Ideal for:
+    - Semiconductor manufacturing
+    - Electronics quality assurance
+    - Educational labs
     """)
-
 # Image loading
 st.subheader("Select Image Input Method")
 input_method = st.radio("options", ["📁 File Uploader", "📷 Camera Input"], label_visibility="collapsed")
