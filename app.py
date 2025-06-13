@@ -139,4 +139,4 @@ st.markdown("""
     <div style='text-align: center; font-size: 0.85em; color: grey;'>
         👨‍💻 Developed by <a href='https://github.com/Jayminraval2908/Anomaly_Detection' target='_blank'>Jaymin Raval</a>
     </div>
-""", unsafe_allow_html=True)True)
+""", unsafe_allow_html=True)
