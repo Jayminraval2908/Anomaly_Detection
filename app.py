@@ -84,7 +84,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load Keras model safely using tensorflow.keras
 try:
-    model = load_model("./weights/keras_model.h5", compile=False)
+    model = load_model("keras_model.h5", compile=False)
 except Exception as e:
     st.error(f"❌ Error loading model: {e}")
     st.stop()
@@ -128,6 +128,6 @@ if submit:
 st.markdown("""<hr style="margin-top: 3rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
 st.markdown("""
     <div style='text-align: center; font-size: 0.9em; color: grey;'>
-        👨‍💻 Developed by <a href='https://github.com/darshan1654/Transistor-Anomaly-Detection_App' target='_blank'>Darshan Pardeshi</a>
+        👨‍💻 Developed by <a href='https://github.com/Jayminraval2908/Anomaly_Detection' target='_blank'>Jaymin Raval</a>
     </div>
 """, unsafe_allow_html=True)
