@@ -31,13 +31,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
-st.markdown("""
-    <div style='text-align: center; padding: 2rem; background: linear-gradient(135deg, #ff4b4b, #e84d4d); border-radius: 12px;'>
-        <h1 style='color: white; font-size: 2.8em; text-shadow: 2px 2px #000;'>🔍 Transistor Anomaly Detector</h1>
-        <p style='color: white; font-size: 1.3em;'>AI-Powered Quality Control for Transistor Circuits</p>
-    </div>
-""", unsafe_allow_html=True)
 with st.sidebar:
     img = Image.open(".docs/overview_dataset.jpg")
     st.image(img.resize((150, 150)))
