@@ -58,44 +58,49 @@ with st.sidebar:
     - Educational labs
     """)
 # Image loading
+# Image loading
+def load_uploaded_image(file):
+    img = Image.open(file).convert("RGB")
+    return img
+
 st.subheader("Select Image Input Method")
 input_method = st.radio("options", ["📁 File Uploader", "📷 Camera Input"], label_visibility="collapsed")
 
 uploaded_file_img = None
 camera_file_img = None
 
-def load_uploaded_image(file):
-    return Image.open(file).convert("RGB")
-
 if input_method == "📁 File Uploader":
     uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
-    if uploaded_file:
+    if uploaded_file is not None:
         uploaded_file_img = load_uploaded_image(uploaded_file)
         st.image(uploaded_file_img, caption="Uploaded Image", width=300)
         st.success("Image uploaded successfully!")
     else:
-        st.warning("Upload a transistor circuit image.")
+        st.warning("Please upload a Transistor circuit image.")
+
 elif input_method == "📷 Camera Input":
+    st.warning("Please allow access to your camera.")
     camera_image_file = st.camera_input("Capture a Transistor Circuit")
-    if camera_image_file:
+    if camera_image_file is not None:
         camera_file_img = load_uploaded_image(camera_image_file)
         st.image(camera_file_img, caption="Captured Image", width=300)
         st.success("Image captured successfully!")
     else:
         st.warning("Please capture an image.")
 
-# 🧠 Load Keras model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# Load Keras model safely using tensorflow.keras
 try:
     model = load_model("keras_model.h5", compile=False)
 except Exception as e:
     st.error(f"❌ Error loading model: {e}")
     st.stop()
 
+# You can modify the labels file if needed
 class_names = ['Good', 'Anomaly']
 
-# 🔍 Anomaly detection logic
+# Anomaly Detection Logic
 def Anomaly_Detection(image):
     image = image.resize((224, 224))
     img_array = img_to_array(image)
@@ -105,23 +110,27 @@ def Anomaly_Detection(image):
     predicted_class_index = np.argmax(predictions[0])
     predicted_class = class_names[predicted_class_index]
 
-    return ("✅ Transistor is Good. No anomalies detected."
-            if predicted_class == "Good"
-            else "⚠️ Alert! An Anomaly detected in the Transistor.")
+    if predicted_class == "Good":
+        return "✅ Congratulations! Transistor is classified as Good with no anomalies."
+    else:
+        return "⚠️ Alert! An Anomaly has been detected in the Transistor."
 
-# 🚀 Submit button
-submit = st.button("🚀 Submit for Inspection")
+# Prediction Trigger
+submit = st.button(label="Submit for Inspection")
 
 if submit:
     st.subheader("🧠 AI Inspection Result")
-    img_file = uploaded_file_img or camera_file_img
-    if img_file:
-        with st.spinner("🔍 AI is analyzing the transistor..."):
+    img_file = uploaded_file_img if input_method == "📁 File Uploader" else camera_file_img
+
+    if img_file is not None:
+        with st.spinner("Inspecting the Transistor image..."):
             prediction = Anomaly_Detection(img_file)
-            st.success(prediction) if "Good" in prediction else st.error(prediction)
+            if "Anomaly" in prediction:
+                st.error(prediction)
+            else:
+                st.success(prediction)
     else:
         st.warning("Please provide an image before submitting.")
-
 # 🧾 Footer
 st.markdown("""<hr style="margin-top: 3rem;">""", unsafe_allow_html=True)
 st.markdown("""
