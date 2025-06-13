@@ -18,81 +18,95 @@ np.set_printoptions(suppress=True)
 # Page layout
 st.set_page_config(page_title="Transistor Anomaly Detector", page_icon="🔍")
 st.markdown("""
-    <div style='text-align: center; padding: 2rem; background-color: #e84d4d; border-radius: 10px;'>
-        <h1 style='color: white; font-size: 2.5em;'>🔍 Transistor Anomaly Detector</h1>
-        <p style='color: white; font-size: 1.2em;'>AI-Powered Quality Control for Transistor circuits</p>
-    </div>
-""", unsafe_allow_html=True)
-st.markdown("""
     <style>
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+        }
+        [data-testid="stAppViewContainer"] {
+            background-color: #121212;
+        }
         [data-testid="stSidebar"] {
-            background-color: #e84d4d !important;
+            background-color: #1e1e1e;
+        }
+        .stButton>button {
+            background-color: #e84d4d;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .stButton>button:hover {
+            background-color: #ff6666;
+            transform: scale(1.02);
+        }
+        img {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
         }
     </style>
 """, unsafe_allow_html=True)
-
+st.markdown("""
+    <div style='text-align: center; padding: 2rem; background: linear-gradient(135deg, #ff4b4b, #e84d4d); border-radius: 12px;'>
+        <h1 style='color: white; font-size: 2.8em; text-shadow: 2px 2px #000;'>🔍 Transistor Anomaly Detector</h1>
+        <p style='color: white; font-size: 1.3em;'>AI-Powered Quality Control for Transistor Circuits</p>
+    </div>
+""", unsafe_allow_html=True)
 with st.sidebar:
     img = Image.open(".docs/overview_dataset.jpg")
-    img_resized = img.resize((150, 150))
-    st.image(img_resized)  
-    
+    st.image(img.resize((150, 150)))
     st.header("📝 About ")
     st.markdown("""
-    Transistor Anomaly Detection App is a powerful AI-powered application designed to help businesses and engineers streamline quality control for **Transistor Circuit Inspections**.
-
-    This app uses deep learning and computer vision to **Automatically classify Transistor circuit images** as:
+    This AI-powered app inspects **Transistor Circuit Images** and classifies them as:
     - ✅ Good
-    - ⚠️ Anomaly (defect or irregularity)
+    - ⚠️ Anomaly
 
-    Ideal for:
-    - Semiconductor manufacturing
-    - Electronics quality assurance
-    - Educational labs
+    **Ideal For:**
+    - Semiconductor QC
+    - Electronics Inspection
+    - Lab Demonstrations
     """)
 
 # Image loading
-def load_uploaded_image(file):
-    img = Image.open(file).convert("RGB")
-    return img
-
 st.subheader("Select Image Input Method")
 input_method = st.radio("options", ["📁 File Uploader", "📷 Camera Input"], label_visibility="collapsed")
 
 uploaded_file_img = None
 camera_file_img = None
 
+def load_uploaded_image(file):
+    return Image.open(file).convert("RGB")
+
 if input_method == "📁 File Uploader":
     uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
-    if uploaded_file is not None:
+    if uploaded_file:
         uploaded_file_img = load_uploaded_image(uploaded_file)
         st.image(uploaded_file_img, caption="Uploaded Image", width=300)
         st.success("Image uploaded successfully!")
     else:
-        st.warning("Please upload a Transistor circuit image.")
-
+        st.warning("Upload a transistor circuit image.")
 elif input_method == "📷 Camera Input":
-    st.warning("Please allow access to your camera.")
     camera_image_file = st.camera_input("Capture a Transistor Circuit")
-    if camera_image_file is not None:
+    if camera_image_file:
         camera_file_img = load_uploaded_image(camera_image_file)
         st.image(camera_file_img, caption="Captured Image", width=300)
         st.success("Image captured successfully!")
     else:
         st.warning("Please capture an image.")
 
+# 🧠 Load Keras model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Load Keras model safely using tensorflow.keras
 try:
     model = load_model("keras_model.h5", compile=False)
 except Exception as e:
     st.error(f"❌ Error loading model: {e}")
     st.stop()
 
-# You can modify the labels file if needed
 class_names = ['Good', 'Anomaly']
 
-# Anomaly Detection Logic
+# 🔍 Anomaly detection logic
 def Anomaly_Detection(image):
     image = image.resize((224, 224))
     img_array = img_to_array(image)
@@ -102,32 +116,27 @@ def Anomaly_Detection(image):
     predicted_class_index = np.argmax(predictions[0])
     predicted_class = class_names[predicted_class_index]
 
-    if predicted_class == "Good":
-        return "✅ Congratulations! Transistor is classified as Good with no anomalies."
-    else:
-        return "⚠️ Alert! An Anomaly has been detected in the Transistor."
+    return ("✅ Transistor is Good. No anomalies detected."
+            if predicted_class == "Good"
+            else "⚠️ Alert! An Anomaly detected in the Transistor.")
 
-# Prediction Trigger
-submit = st.button(label="Submit for Inspection")
+# 🚀 Submit button
+submit = st.button("🚀 Submit for Inspection")
 
 if submit:
     st.subheader("🧠 AI Inspection Result")
-    img_file = uploaded_file_img if input_method == "📁 File Uploader" else camera_file_img
-
-    if img_file is not None:
-        with st.spinner("Inspecting the Transistor image..."):
+    img_file = uploaded_file_img or camera_file_img
+    if img_file:
+        with st.spinner("🔍 AI is analyzing the transistor..."):
             prediction = Anomaly_Detection(img_file)
-            if "Anomaly" in prediction:
-                st.error(prediction)
-            else:
-                st.success(prediction)
+            st.success(prediction) if "Good" in prediction else st.error(prediction)
     else:
         st.warning("Please provide an image before submitting.")
 
-# Footer
-st.markdown("""<hr style="margin-top: 3rem; margin-bottom: 1rem;">""", unsafe_allow_html=True)
+# 🧾 Footer
+st.markdown("""<hr style="margin-top: 3rem;">""", unsafe_allow_html=True)
 st.markdown("""
-    <div style='text-align: center; font-size: 0.9em; color: grey;'>
+    <div style='text-align: center; font-size: 0.85em; color: grey;'>
         👨‍💻 Developed by <a href='https://github.com/Jayminraval2908/Anomaly_Detection' target='_blank'>Jaymin Raval</a>
     </div>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True)True)
